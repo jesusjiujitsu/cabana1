@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { cabinConfig } from '@/lib/cabin'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -16,14 +17,12 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Cabana Bruzamarello · Refúgio a dois em Viamão, RS',
-  description:
-    'Uma cabana A-frame cercada de campo, com hidromassagem sob o teto de vidro, piscina e pôr do sol de frente para a varanda. Um refúgio romântico para dois, a poucos minutos da cidade.',
-  generator: 'v0.app',
+  title: `${cabinConfig.name} · Refúgio em ${cabinConfig.locationShort}`,
+  description: cabinConfig.hero.description,
   openGraph: {
-    title: 'Cabana Bruzamarello',
-    description: 'Refúgio romântico para dois em Viamão, Rio Grande do Sul.',
-    images: ['/images/cabana-fachada.jpg'],
+    title: cabinConfig.name,
+    description: `Refúgio em ${cabinConfig.locationShort}`,
+    images: [cabinConfig.hero.image],
     locale: 'pt_BR',
   },
   icons: {

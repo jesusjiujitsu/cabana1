@@ -1,13 +1,15 @@
 import Image from 'next/image'
 import { ArrowDown, Star } from 'lucide-react'
-import { BOOKING_URL } from '@/lib/cabin'
+import { cabinConfig } from '@/lib/cabin'
 
 export function Hero() {
+  const { hero, bookingUrl } = cabinConfig
+
   return (
     <section id="inicio" className="relative flex min-h-svh flex-col overflow-hidden bg-espresso text-espresso-foreground">
       <Image
-        src="/images/cabana-fachada.jpg"
-        alt="Cabana A-frame de madeira cercada de gramado e céu azul"
+        src={hero.image}
+        alt={hero.imageAlt}
         fill
         priority
         sizes="100vw"
@@ -21,22 +23,23 @@ export function Hero() {
       <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-6 pb-16 lg:px-10 lg:pb-20">
         <p className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.4em] text-accent animate-in fade-in slide-in-from-bottom-4 duration-1000">
           <span className="h-px w-10 bg-accent" aria-hidden="true" />
-          Um refúgio feito para dois
+          {hero.badge}
         </p>
 
         <h1 className="max-w-4xl text-balance font-serif text-5xl font-light leading-[1.02] animate-in fade-in slide-in-from-bottom-6 duration-1000 sm:text-6xl lg:text-8xl">
-          Onde o tempo desacelera e <em className="font-normal text-accent">o amor</em> ganha vista.
+          {hero.titleLead}
+          <em className="font-normal text-accent">{hero.titleHighlight}</em>
+          {hero.titleEnd}
         </h1>
 
         <div className="mt-10 flex flex-col gap-10 animate-in fade-in slide-in-from-bottom-8 duration-1000 md:flex-row md:items-end md:justify-between">
           <p className="max-w-lg text-pretty text-base leading-relaxed text-espresso-foreground/85 md:text-lg">
-            Uma cabana A-frame cercada de campo, com hidromassagem sob o teto de vidro, piscina e o pôr do sol
-            acontecendo bem diante da sua varanda.
+            {hero.description}
           </p>
 
           <div className="flex flex-wrap items-center gap-6">
             <a
-              href={BOOKING_URL}
+              href={bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-accent px-8 py-4 text-xs font-medium uppercase tracking-[0.3em] text-accent-foreground transition-colors hover:bg-espresso-foreground"

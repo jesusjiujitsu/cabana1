@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { BOOKING_URL } from '@/lib/cabin'
+import { cabinConfig } from '@/lib/cabin'
 
 const links = [
   { href: '#avaliacoes', label: 'Hóspedes' },
@@ -34,9 +34,9 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-10">
         <a href="#inicio" className="flex flex-col leading-none text-espresso-foreground">
-          <span className="font-serif text-2xl tracking-wide md:text-[1.7rem]">Cabana Bruzamarello</span>
+          <span className="font-serif text-2xl tracking-wide md:text-[1.7rem]">{cabinConfig.name}</span>
           <span className="mt-1 text-[0.62rem] uppercase tracking-[0.35em] text-espresso-foreground/70">
-            Viamão · Rio Grande do Sul
+            {cabinConfig.locationShort}
           </span>
         </a>
 
@@ -51,10 +51,10 @@ export function SiteHeader() {
             </a>
           ))}
           <a
-            href={BOOKING_URL}
+            href={cabinConfig.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-accent/70 px-5 py-2.5 text-xs uppercase tracking-[0.25em] text-espresso-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            className="border border-accent/80 bg-accent/10 px-5 py-2.5 text-xs uppercase tracking-[0.25em] text-accent backdrop-blur-sm transition-all hover:bg-accent hover:text-accent-foreground"
           >
             Reservar
           </a>
@@ -62,42 +62,39 @@ export function SiteHeader() {
 
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="text-espresso-foreground md:hidden"
-          aria-expanded={open}
-          aria-controls="menu-mobile"
+          onClick={() => setOpen(!open)}
+          className="p-2 text-espresso-foreground md:hidden"
           aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={open}
         >
           {open ? <X className="size-6" /> : <Menu className="size-6" />}
         </button>
       </div>
 
       {open && (
-        <nav id="menu-mobile" aria-label="Navegação móvel" className="border-t border-white/10 px-6 pb-6 pt-4 md:hidden">
-          <ul className="flex flex-col gap-4">
+        <div className="border-t border-espresso-foreground/10 bg-espresso px-6 py-6 md:hidden">
+          <nav className="flex flex-col gap-4">
             {links.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="block text-sm uppercase tracking-[0.25em] text-espresso-foreground/85"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-            <li>
               <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 inline-block bg-accent px-5 py-3 text-xs uppercase tracking-[0.25em] text-accent-foreground"
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="text-sm uppercase tracking-[0.25em] text-espresso-foreground/80"
               >
-                Reservar sua estadia
+                {link.label}
               </a>
-            </li>
-          </ul>
-        </nav>
+            ))}
+            <a
+              href={cabinConfig.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="mt-2 text-center bg-accent py-3 text-xs uppercase tracking-[0.25em] text-accent-foreground"
+            >
+              Reservar
+            </a>
+          </nav>
+        </div>
       )}
     </header>
   )
